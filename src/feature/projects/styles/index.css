@@ -1,0 +1,7 @@
+.dialog-content {
+	height: 72vh;
+}
+
+:fullscreen .dialog-content {
+	height: 90vh;
+}
