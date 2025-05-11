@@ -36,3 +36,10 @@ export interface Project {
 	changeReason: string;
 	remarks: string;
 }
+
+export interface APIResponse {
+	data: Project[];
+	total: number;
+	page: number;
+	limit: number;
+}

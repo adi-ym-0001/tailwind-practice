@@ -19,12 +19,15 @@ import { ProjectForm } from "./ProjectForm";
 import "../styles/index.css";
 import { createRoute } from "@tanstack/react-router";
 import { RootRoute } from "../../../router/RootRoute";
+import { Input } from "@/components/ui/input";
 
 const ProjectMng = () => {
 	const [selectedRows, setSelectedRows] = React.useState<
 		Record<string, boolean>
 	>({}); // 各行のチェック有無
 	const [showSearchBox, setShowSearchBox] = React.useState(false); // 検索エリア開閉管理
+
+	const [query, setQuery] = React.useState("");// 検索値
 
 	// 選択されている行の数をカウント
 	const selectedCount = Object.values(selectedRows).filter(Boolean).length;
@@ -105,7 +108,16 @@ const ProjectMng = () => {
 								)}
 							</div>
 						</div>
-						{showSearchBox && (<div className="bg-gray-100 h-20"></div>)}
+						{showSearchBox && (
+							<div className="bg-gray-100 h-20">
+								<Input 
+									type="text"
+									value={query}
+									onChange={(e) => setQuery(e.target.value)}
+        					placeholder="キーワードを入力"
+									className="w-56 bg-white"
+								/>
+							</div>)}
 						<TabsList className="bg-blue-100 h-7">
 							<TabsTrigger value="project" className="text-gray-500 text-xs">
 								案件一覧
@@ -119,12 +131,13 @@ const ProjectMng = () => {
 						{/* 全画面表示した時にカードの縦幅が狭い、、、 */}
 						<TabsContent
 							value="project"
-							className="overflow-auto h-[72vh] lg:h-[78vh]"
+							// className="overflow-auto h-[72vh]"
 						>
 							{/* 案件リストを表示 */}
 							<ProjectList
 								selectedRows={selectedRows}
 								setSelectedRows={setSelectedRows}
+								query={query}
 							/>
 						</TabsContent>
 						<TabsContent value="history">ここに変更履歴一覧表示</TabsContent>
